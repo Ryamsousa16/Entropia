@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{underscore}
+
+\begin{document}
+
+\title{Trabalho de entropia}
+\author{Ryam Sousa e João Lucas}
+\date{26/05/2023}
+
+\maketitle
+
+\section{Introdução}
+A entropia é uma medida de incerteza em um conjunto de eventos probabilísticos. Ela é amplamente utilizada em teoria da informação e estatística para quantificar o grau de imprevisibilidade de um sistema. A fórmula geral da entropia é dada por:
+
+\[
+S = -\sum p_i (\log2^pi)
+\]
+\[\newline\]
+Onde $S$ representa a entropia e $p_i$ representa as probabilidades dos eventos.
+
+\section{Exemplo}
+Considere um sistema com duas possibilidades: sim e não. Vamos calcular a entropia desse sistema usando a fórmula da entropia.
+
+\subsection{Cálculo das probabilidades}
+Suponha que a primeira possibilidade ("sim") ocorreu em 328 casos, enquanto a segunda possibilidade ("não") ocorreu em 396 casos.
+\[\newline\]
+Calculamos as probabilidades de cada possibilidade dividindo o número de casos de cada possibilidade pelo número total de casos:
+
+\[
+p_{\text{sim}} = \frac{328}{328 + 396} = \frac{328}{724} = 0.453
+\]
+
+\[
+p_{\text{não}} = \frac{396}{328 + 396} = \frac{396}{724} = 0.546
+\]
+
+\subsection{Cálculo da entropia}
+Substituindo as probabilidades na fórmula da entropia, temos:
+
+\[
+S = - (0.453 \log2(0.453) + 0.546 \log2(0.546))
+\]
+\[\newline\]
+Agora, podemos calcular numericamente o valor da entropia.
+
+\subsection{Resultados}
+Realizando os cálculos, encontramos que a entropia do sistema é igual a $S \approx 0.994$.
+\[\newline\]
+Realizando os cálculos do máximo valor que a entropia pode alcançar, encontramos o resultado $S = 1$.
+
+
+
+\section{Conclusão}
+A entropia é uma medida útil para avaliar a imprevisibilidade de um sistema. Quanto maior a entropia, maior é o grau de incerteza e imprevisibilidade. Neste exemplo, a imprevisibilidade é alta, quase no limite possível, sendo um ótimo exemplo para aplicação de inteligência artificial.
+\newpage
+\section{Código em python}
+import pandas as pd\\
+from math import log
+\[\newline\]
+contadorN = 0 \\
+contadorY = 0 \\
+
+\hspace{-0.5cm}df = pd.read\_csv('heart.csv') 
+
+\hspace{-0.5cm}df = df.drop(columns=['Cholesterol', 'ChestPainType', 'Oldpeak', 'ST\_Slope', 'RestingBP', 'MaxHR', 'HeartDisease',
+'RestingECG', 'FastingBS', \par'HeartDisease', 'Age'])\\\\
+df = df.dropna()\\
+
+\hspace{-0.5cm}for i in range(0, 917):\par
+    \hspace{0.5cm}sexo = df["Sex"][i]\[\newline\]
+
+    \hspace{0.5cm}if sexo == "F":\par
+        \hspace{1.5cm}df = df.drop(i)\par
+    \hspace{0.5cm}else:\par
+        \hspace{1.5cm}escolha = df["ExerciseAngina"][i]\par
+        \hspace{1.5cm}if escolha == "N":\par
+            \hspace{2.5cm}contadorN += 1 \par
+        \hspace{1.5cm}else:\par
+            \hspace{2.5cm}contadorY += 1\\ \par
+
+dados = df.value\_counts() \par
+
+list\_class = [contadorN, contadorY] \par
+list\_porc = []\\ \par
+
+quant\_result = contadorY + contadorN \par
+quant\_class = 2\par
+entropia = 0 \\ \par
+
+for i in range(0, quant\_class):\par
+    \hspace{0.5cm}x = list\_class[i] / quant\_result \par
+    \hspace{0.5cm}list\_porc.append(x)\\ \par
+
+for i in range(0, quant\_class):\par
+    \hspace{0.5cm}porc = list\_porc[i]\par
+    \hspace{0.5cm}x = log(porc) / log(2) \par
+    \hspace{0.5cm}entropia += porc * x \par
+
+print("O resultado da entropia é: {:.4}".format(entropia * -1)) \par
+print("O valor máximo da entropia é: {:.4}".format(log(quant\_class, 2)))
+\end{document}
