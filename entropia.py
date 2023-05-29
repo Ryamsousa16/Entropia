@@ -21,8 +21,6 @@ for i in range(0, 917):
         else:
             contadorY += 1
 
-dados = df.value_counts()
-
 list_class = [contadorN, contadorY]
 list_porc = []
 
